@@ -1,0 +1,35 @@
+{
+  "skill_name": "mastering-technical-sales",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a new solutions engineer at a SaaS company and I have my first discovery call with a prospect tomorrow. They're a mid-market e-commerce company. I've never done discovery before — the sales rep set this up and said the prospect is 'interested in our analytics platform.' What questions should I ask and what should I avoid?",
+      "expected_output": "Should reference the Three Behavioral Crimes of Discovery (Tell/Accept/Guess), use open-ended and nonquestion questions, cover technical and business discovery (BVD Quadrants, pains), mention BANT or MEDDIC qualification, and provide the inputs → process → outputs methodology. Should warn against dashing to demo and telling instead of listening.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My CEO asked me to present our new cybersecurity product to a bank's CISO and CIO next week. I have 20 minutes. I'm terrified — I usually do technical demos for engineers, not C-level executives. How should I structure this presentation?",
+      "expected_output": "Should reference the Executive Connection chapter — brevity, business outcomes, follow the money, the 'so what' test. Should use RM+3KP structure or the 3-slide format (Problem → Solution → Business Case). Should address handling nervous energy and executive-level delivery, the Attention Curve, and a bright beginning + fantastic finish.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We keep losing deals to 'no decision' — the prospect just sticks with the status quo instead of buying anything. I'm an SE and I get frustrated because our product is clearly better. What competitive strategies should I use when the real competitor isn't another vendor but the customer doing nothing?",
+      "expected_output": "Should identify the status quo as the #1 competitor and discuss the Five Competitive Strategies — especially Flanking (changing the evaluation criteria). Should address making the cost of inaction visible using BVD Quadrants and the Time/Money/People framework, and building the case for change. Should provide a specific strategy, not just 'highlight our advantages.'",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Our biggest enterprise prospect just sent over a 120-page RFP with 400 questions. The sales rep says 'just fill it all in, we have to respond.' But I have a feeling the deal is already wired to our competitor. What should we do before burning two weeks of SE time on this?",
+      "expected_output": "Should reference the RFP chapter — the Go/No-Go decision (real/funded? relationship/coach? mandated vendor? differentiated answer?), the RFP myths, scoring the RFP, and the alternate response strategy. Should push back on reflexively responding to every RFP.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Our company is about to run a huge deal that will involve me (the domain SME), two other SEs from different product teams, and the field SE, all in the same customer meeting next week. I'm worried this will be a mess. What could go wrong and how do we coordinate?",
+      "expected_output": "Should reference the SME/SE Specialist chapter — Team Technical Selling and why it's hard, and specifically the Seven Sins of Team Selling (no clear lead, conflicting messages, talking over each other, credit battles, unprepared handoffs, too many cooks, customer pitting SEs against each other). Should prescribe designating a clear lead, agreeing message/demo flow, rehearsing handoffs, backing each other up.",
+      "files": []
+    }
+  ]
+}
