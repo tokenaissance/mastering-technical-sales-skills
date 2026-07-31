@@ -1,116 +1,94 @@
-# Knowledge Wiki Template
+# Mastering Technical Sales — Claude Code Skill
 
-> English | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md)
+A comprehensive Sales Engineering playbook skill for Claude Code, based on John Care's *"Mastering Technical Sales: The Sales Engineer's Handbook"* (4th Edition, Artech House, 2022).
 
-A template for building a personal knowledge wiki powered by AI. Add your own notes and documents; the AI skills maintain an interconnected wiki in `Wiki/` automatically.
+## What it does
 
-## Setup
+When you face a technical-sales situation, this skill ensures Claude:
 
-### 1. Install Node.js 24
+- **Applies the book's named frameworks, not generic advice** — Three Behavioral Crimes (Tell/Accept/Guess), BANT/MEDDIC, FAB, RM+3KP, Demo GPS, Checkpoint Charlie, LACE, the Trust Equation, the Five Competitive Strategies, and more
+- **Covers the full SE lifecycle** — qualification → discovery → business value → demos → POC → executive engagement → career growth
+- **Maps every scenario to a chapter** — all **34 chapters** in 5 parts, from "The Four Roles" to "Final Words", with a lookup table that routes any situation to the right framework
+- **Tailors depth to the situation** — a TL;DR + framework for single-topic questions, the full playbook for complex, multi-topic deals
+- **Grounds the technical demo in business value** — Time/Money/People quantification, TCO/ROI/Emotional ROI, Follow the Money
 
-Download and install Node.js from [nodejs.org](https://nodejs.org/) — the installer sets up `nvm` automatically. Then activate the version pinned in `.nvmrc`:
+## Eval Results
 
-```shellscript
-nvm use
+Tested across 5 real-world SE scenarios (first discovery call, CISO/CIO executive presentation, no-decision/status-quo competition, 120-page RFP go/no-go, multi-SE team meeting):
+
+| Scenario | Without Skill | With Skill |
+|----------|:---:|:---:|
+| First discovery call | 3/5 | **5/5** |
+| Executive presentation (CISO/CIO) | 2/4 | **4/4** |
+| Status-quo / "no decision" competition | 3/4 | **4/4** |
+| 120-page RFP go/no-go | 3/3 | **3/3** |
+| Multi-SE team meeting | 2/3 | **3/3** |
+| **Overall** | **70%** | **100%** |
+
+The skill's biggest impact is mapping the situation to the book's named frameworks (RM+3KP, the Five Competitive Strategies, the Seven Sins of Team Selling) — without it, Claude gives competent but framework-free advice.
+
+## Installation
+
+### Option 1: Clone + symlink (recommended)
+
+```bash
+git clone https://github.com/tokenaissance/mastering-technical-sales-skills.git
+ln -s "$(pwd)/mastering-technical-sales-skills/.claude/skills/mastering-technical-sales" ~/.claude/skills/
 ```
 
-### 2. Install ripgrep
+### Option 2: Copy
 
-Follow the [official ripgrep installation instructions](https://github.com/BurntSushi/ripgrep#installation) for your platform.
-
-### 3. Install qmd
-
-```shellscript
-npm install -g @tobilu/qmd
+```bash
+git clone https://github.com/tokenaissance/mastering-technical-sales-skills.git
+cp -r mastering-technical-sales-skills/.claude/skills/mastering-technical-sales ~/.claude/skills/
 ```
 
-### 4. Create the collection
+### Option 3: In-repo (Claude Code)
 
-Replace `~/path/to/your/knowledge-wiki` with the actual path to your repo:
+Claude Code auto-detects skills under `.claude/skills/` in a project. If this repo is one you already work in, the skill is available with no extra step.
 
-```shellscript
-qmd collection add ~/path/to/your/knowledge-wiki --name knowledge
-```
+After installation, restart Claude Code. The skill triggers automatically when you ask about discovery calls, demos, presentations, objections, RFP responses, POCs, competitive positioning, or any sales engineering scenario.
 
-### 5. Generate embeddings
-
-First index the files, then generate vector embeddings. `update` and `embed` are separate steps — `embed` only operates on what is already in the index.
-
-The default embedding model has limited CJK coverage. Use the Qwen model instead to get good results across English, Mandarin, and Cantonese:
-
-```shellscript
-qmd update --collection knowledge
-QMD_EMBED_MODEL="hf:Qwen/Qwen3-Embedding-0.6B-GGUF/Qwen3-Embedding-0.6B-Q8_0.gguf" qmd embed --collection knowledge
-```
-
-The first run downloads the model and may take a few minutes.
-
-### 6. Configure git hooks
-
-Point git at the tracked hooks directory so the index stays up to date automatically on every commit, checkout, merge, and rebase:
-
-```shellscript
-git config core.hooksPath .githooks
-```
-
-The hooks run `qmd update` and `qmd embed` (with the Qwen model) automatically. If `qmd` is not installed they print a notice and exit cleanly.
-
-### 7. Set up MCP server for Claude
-
-Merge into `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "qmd": {
-      "command": "qmd",
-      "args": ["mcp"]
-    }
-  }
-}
-```
-
-### 8. Set up MCP server for Claude Code
-
-```shellscript
-claude plugin marketplace add tobi/qmd
-claude plugin install qmd@qmd
-```
-
-### 9. Set up MCP server for Codex
-
-```shellscript
-codex mcp add qmd -- qmd mcp
-```
-
-### 10. Add Your Content
-
-Create any folder structure that fits your needs — for example `Notes/`, `Ideas/`, `Docs/`, `Journals/`. The wiki skills scan all Markdown files in the repo (excluding `Wiki/`, `.claude/`, `README.md` and localized variants, `AGENTS.md`, and `CLAUDE.md`), so any `.md` file you add becomes eligible for summarization.
-
-### 11. Use the Skills
-
-The skills live in `.claude/skills/` and are designed to be invoked by an AI agent. **Claude Code** (the [macOS desktop app](https://claude.ai/download) or [CLI](https://docs.anthropic.com/en/docs/claude-code)) is the recommended tool — type the skill name as a slash command:
+## Example prompts
 
 ```
-/knowledge-wiki-summary
+I'm a new SE and have my first discovery call with an e-commerce prospect tomorrow. What should I ask?
+
+How should I structure a 20-minute security product presentation to a bank's CISO and CIO?
+
+We keep losing deals to "no decision" — the prospect just sticks with the status quo. What strategies should I use?
+
+We got a 120-page RFP and the rep says "just fill it all in." Is it wired? Should we respond?
+
+Four SEs from different product teams are in one customer meeting next week. How do we keep it from being a mess?
 ```
 
-Other agents (Codex, etc.) can also run the skills by specifying the full path, for example:
+## Skill structure
 
 ```
-Run the skill at .claude/skills/knowledge-wiki-summary
+mastering-technical-sales/
+├── SKILL.md       # 34-chapter playbook (5 parts) + framework lookup table
+├── README.md      # Skill documentation
+└── evals/
+    └── evals.json # 5 verification scenarios
 ```
 
-Run the skills in order after adding or editing source files:
+## The 34 chapters
 
-| Skill                       | When to run                                                                                                                |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `/knowledge-wiki-summary`   | After adding or editing source files — generates or refreshes summary files in `Wiki/Summaries/`                           |
-| `/knowledge-wiki-concept`   | After running summary — creates or updates concept articles in `Wiki/Concepts/`                                            |
-| `/knowledge-wiki-synthesis` | Periodically after accumulating new concepts — discovers cross-cutting connections and writes synthesis articles           |
-| `/knowledge-wiki-lint`      | Periodically, especially after reorganizing source files — repairs orphan summaries, broken wikilinks, and orphan concepts |
-| `/knowledge-wiki-cluster`   | Periodically — interactive session to create topic overview concepts for clusters of related sub-concepts without a parent |
-| `/knowledge-wiki-merge`     | Periodically — interactive session to identify and merge duplicate concept articles                                        |
-| `/knowledge-wiki-enrich`    | Periodically — expands thin concept articles (< 4 prose lines, ≤ 2 sources) using web search                              |
+| Part | Chapters | Key frameworks |
+|------|----------|----------------|
+| 1. The Role & The Sales Process | 1–4 | Four SE Roles, 10-Stage Sales Process, BANT/MEDDIC, RFP Go/No-Go & Myths |
+| 2. Discovery & Business Value | 5–9 | Behavioral Crimes, Pain Types, BVD Quadrants, 3WM+M, Time/Money/People, FAB, Technical Account Plan & Coach |
+| 3. Presenting, Demos & Storytelling | 10–16 | RM+3KP, Attention Curve, Delivery Skills, Checkpoint Charlie, Demo GPS, Remote Demo, Whiteboarding, Storytelling |
+| 4. Proving Value, Trust & Executives | 17–21 | 7-Phase POC, LACE, Trust Equation, Executive Connection, TCO/ROI/Payback/Emotional ROI |
+| 5. Career, Growth & Management | 22–34 | 30/90/180-Day Plan, Brand Statement, Partner Selling, Competitive Tactics, CRM, Compensation, SE→Sales, SME/Team Selling & Seven Sins, Hiring, DOG Framework, Metrics |
 
-The periodic skills (`/knowledge-wiki-synthesis`, `/knowledge-wiki-lint`, `/knowledge-wiki-enrich`) can also be configured to run on a schedule using the Claude desktop app's built-in scheduling feature, so the wiki stays fresh automatically.
+## References
+
+- John Care, *Mastering Technical Sales: The Sales Engineer's Handbook*, 4th Edition (Artech House, 2022, ISBN 978-1-63081-872-2)
+
+This skill is a study playbook summarizing the book's frameworks for use with Claude Code. The underlying text is copyrighted by its author; the skill organization and framework summaries are provided for personal and educational use.
+
+## License
+
+MIT (see [LICENSE](LICENSE)).
