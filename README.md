@@ -29,23 +29,30 @@ The skill's biggest impact is mapping the situation to the book's named framewor
 
 ## Installation
 
-### Option 1: Clone + symlink (recommended)
+### Option 1: npx skills (recommended)
+
+```bash
+npx skills add tokenaissance/mastering-technical-sales-skills
+```
+
+To install for a specific agent only:
+
+```bash
+npx skills add tokenaissance/mastering-technical-sales-skills -a claude-code
+```
+
+### Option 2: Claude Code plugin
+
+```bash
+claude plugin add tokenaissance/mastering-technical-sales-skills
+```
+
+### Option 3: Manual
 
 ```bash
 git clone https://github.com/tokenaissance/mastering-technical-sales-skills.git
-ln -s "$(pwd)/mastering-technical-sales-skills/.claude/skills/mastering-technical-sales" ~/.claude/skills/
+cp -r mastering-technical-sales-skills/mastering-technical-sales ~/.claude/skills/
 ```
-
-### Option 2: Copy
-
-```bash
-git clone https://github.com/tokenaissance/mastering-technical-sales-skills.git
-cp -r mastering-technical-sales-skills/.claude/skills/mastering-technical-sales ~/.claude/skills/
-```
-
-### Option 3: In-repo (Claude Code)
-
-Claude Code auto-detects skills under `.claude/skills/` in a project. If this repo is one you already work in, the skill is available with no extra step.
 
 After installation, restart Claude Code. The skill triggers automatically when you ask about discovery calls, demos, presentations, objections, RFP responses, POCs, competitive positioning, or any sales engineering scenario.
 
@@ -67,10 +74,11 @@ Four SEs from different product teams are in one customer meeting next week. How
 
 ```
 mastering-technical-sales/
-├── SKILL.md       # 34-chapter playbook (5 parts) + framework lookup table
-├── README.md      # Skill documentation
+├── SKILL.md                          # Main skill instructions (34-chapter playbook)
+├── references/
+│   └── framework-lookup.md           # Situation → Framework → Chapter routing table
 └── evals/
-    └── evals.json # 5 verification scenarios
+    └── evals.json                    # 5 verification scenarios
 ```
 
 ## The 34 chapters
